@@ -1,106 +1,73 @@
 const {
     GraphQLObjectType,
     GraphQLString,
-    GraphQLList,
     GraphQLInt,
-    GraphQLNonNull
+    GraphQLBoolean
 } = require('graphql')
 const {
-    AuthorType,
-    BookType,
+    PasswordType,
 } = require('./gql-types')
 const {
-    authors,
-    books
-} = require('./random-data')
+    Password
+} = require('../endpoint-functions/random-password')
+const {
+    UserInputError
+} = require('apollo-server')
 
 
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
     description: 'Root Query',
     fields: () => ({
-        book: {
-            type: BookType,
-            description: 'A Single Book',
+        generatePassword: {
+            type: PasswordType,
+            description: 'Randomly generated password based on the query options provided.',
             args: {
-                id: {
-                    type: GraphQLInt
-                }
-            },
-            resolve: (parent, args) => books.find(book => book.id === args.id)
-        },
-        books: {
-            type: new GraphQLList(BookType),
-            description: 'List of All Books',
-            resolve: () => {
-                console.log('test')
-                return books
-            }
-        },
-        authors: {
-            type: new GraphQLList(AuthorType),
-            description: 'List of All Authors',
-            resolve: () => authors
-        },
-        author: {
-            type: AuthorType,
-            description: 'A Single Author',
-            args: {
-                id: {
-                    type: GraphQLInt
-                }
-            },
-            resolve: (parent, args) => authors.find(author => author.id === args.id)
-        }
-    })
-})
-
-const RootMutationType = new GraphQLObjectType({
-    name: 'Mutation',
-    description: 'Root Mutation',
-    fields: () => ({
-        addBook: {
-            type: BookType,
-            description: 'Add a book',
-            args: {
-                name: {
-                    type: GraphQLNonNull(GraphQLString)
+                uppercase: {
+                    type: GraphQLBoolean,
+                    defaultValue: true
                 },
-                authorId: {
-                    type: GraphQLNonNull(GraphQLInt)
-                }
+                lowercase: {
+                    type: GraphQLBoolean,
+                    defaultValue: true
+                },
+                numbers: {
+                    type: GraphQLBoolean,
+                    defaultValue: false
+                },
+                symbols: {
+                    type: GraphQLBoolean,
+                    defaultValue: false
+                },
+                includeCharacters: {
+                    type: GraphQLString,
+                    defaultValue: ''
+                },
+                excludeCharacters: {
+                    type: GraphQLString,
+                    defaultValue: ''
+                },
+                length: {
+                    type: GraphQLInt,
+                    defaultValue: 15
+                },
             },
             resolve: (parent, args) => {
-                const book = {
-                    id: books.length + 1,
-                    name: args.name,
-                    authorId: args.authorId
+                try {
+                    const passwordGenerate = new Password(args.uppercase, args.lowercase, args.numbers, args.symbols, args.includeCharacters, args.excludeCharacters, args.length)
+                    const password = passwordGenerate.generatePassword()
+                    return {
+                        password
+                    }
+                } catch (error) {
+                    return new UserInputError(error.message)
                 }
-                books.push(book)
-                return book
             }
         },
-        addAuthor: {
-            type: AuthorType,
-            description: 'Add an author',
-            args: {
-                name: {
-                    type: GraphQLNonNull(GraphQLString)
-                }
-            },
-            resolve: (parent, args) => {
-                const author = {
-                    id: authors.length + 1,
-                    name: args.name
-                }
-                authors.push(author)
-                return author
-            }
-        }
     })
 })
 
 module.exports = {
     RootQueryType,
-    RootMutationType,
+    // RootMutationType,
 }
