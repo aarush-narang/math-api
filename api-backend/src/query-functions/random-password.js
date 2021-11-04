@@ -13,7 +13,6 @@ class Password {
         this.includeCharacters = includeCharacters
         this.excludeCharacters = excludeCharacters
         this.length = length
-        // add limit to includeCharaters and excludeCharacters
     }
     generateCharacterSet() { // generates the character set for the password
         let characterSet = ''

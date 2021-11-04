@@ -9,7 +9,7 @@ const {
 } = require('./gql-types')
 const {
     Password
-} = require('../endpoint-functions/random-password')
+} = require('../query-functions/random-password')
 const {
     UserInputError
 } = require('apollo-server')
