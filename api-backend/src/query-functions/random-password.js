@@ -1,3 +1,5 @@
+const e = require("express")
+
 class Password {
     constructor(uppercase, lowercase, numbers, symbols, includeCharacters, excludeCharacters, length) {
         if (!uppercase && !lowercase && !numbers && !symbols) throw new Error('Password options must have at least one option set to "true"')
@@ -45,13 +47,32 @@ class Password {
 
         return characterSet
     }
+    evaluateStrength(pwd) {
+        if (pwd.length > 25) return 'VERY_STRONG'
+        let test = ''
+        const upCaseCount = (pwd.match(new RegExp('[A-Z]', 'g')) || []).length
+        const lowCaseCount = (pwd.match(new RegExp('[a-z]', 'g')) || []).length
+        const numCount = (pwd.match(new RegExp('[0-9]', 'g')) || []).length
+        const symbCount = (pwd.match(new RegExp('[!@#\$%\^&\*\(\)]', 'g')) || []).length
+        //very scuffed way to calculate password strength (doesnt work too well)
+        const strength = Math.abs((Math.log(10 / (upCaseCount === 0 ? 1 : upCaseCount)) + Math.log(10 / (lowCaseCount === 0 ? 1 : lowCaseCount)) + Math.log(10 / (numCount === 0 ? 1 : numCount)) + Math.log(10 / (symbCount === 0 ? 1 : symbCount))) * pwd.length)
+        if (strength >= 80) return 'VERY_STRONG'
+        else if (strength >= 70) return 'STRONG'
+        else if (strength >= 60) return 'MEDIUM'
+        else return 'WEAK'
+
+    }
     generatePassword() {
         const characterSet = this.generateCharacterSet()
         let password = ''
         while (password.length < this.length) {
             password += characterSet.substr(((Math.random() * (characterSet.length - 1)) + 1), 1) // get a random character from the set and add it to the password string
         }
-        return password
+        const strength = this.evaluateStrength(password)
+        return {
+            password,
+            strength
+        }
     }
 }
 
