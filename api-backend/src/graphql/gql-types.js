@@ -10,10 +10,10 @@ const PasswordType = new GraphQLObjectType({
     description: "This represents a randomly generated password based on the query options provided.",
     fields: () => ({
         password: {
-            type: GraphQLNonNull(GraphQLString)
+            type: new GraphQLNonNull(GraphQLString)
         },
         strength: {
-            type: GraphQLNonNull(GraphQLString)
+            type: new GraphQLNonNull(GraphQLString)
         }
     })
 })
@@ -23,7 +23,7 @@ const UUIDType = new GraphQLObjectType({
     description: "This represents a randomly generated UUID.",
     fields: () => ({
         uuid: {
-            type: GraphQLNonNull(GraphQLString)
+            type: new GraphQLNonNull(GraphQLString)
         }
     })
 })
