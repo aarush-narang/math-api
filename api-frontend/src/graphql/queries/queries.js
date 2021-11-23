@@ -1,13 +1,11 @@
-import { gql } from '@apollo/client';
+import {
+    gql
+} from "@apollo/client";
 
-export const booksQuery = gql`
-    query getBooksQuery {
-        books {
-		    id
-            name
-            author {
-                name
-            }
-        }
-    }   
+export const solveQuadraticQuery = gql`
+  query solveQuadraticQuery($y: GraphQLNumber!, $a: GraphQLNumber!, $b: GraphQLNumber!, $c: GraphQLNumber!) {
+    solveQuadratic(y: $y, a: $a, b: $b, c: $c) {
+      roots
+    }
+  }
 `;

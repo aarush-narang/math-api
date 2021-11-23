@@ -1,12 +1,15 @@
 import React from "react";
-import { Switch, Route } from 'react-router-dom'
+import {
+    Routes,
+    Route
+} from "react-router-dom";
 import { HomePage } from './pages'
 
 function App() {
   return (
-    <Switch>
-      <Route path="/" exact={ true } component={ HomePage } />
-    </Switch>
+    <Routes>
+      <Route caseSensitive={true} path="/" element={<HomePage />} />
+    </Routes>
   );
 }
 

@@ -38,7 +38,6 @@ const RootQueryType = new GraphQLObjectType({
                         roots
                     }
                 } catch (error) {
-                    console.log(error)
                     return error
                 }
             }

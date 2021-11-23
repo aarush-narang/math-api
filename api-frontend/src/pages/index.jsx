@@ -1,22 +1,15 @@
 import React from "react";
 import { useQuery, useMutation } from '@apollo/client';
-import { booksQuery } from '../graphql/queries/queries';
+import { solveQuadraticQuery } from '../graphql/queries/queries';
 import { mutation } from '../graphql/mutations/mutations';
 
 export function HomePage() {
-    const { loading, error, data } = useQuery(booksQuery)
+    const { loading, error, data } = useQuery(solveQuadraticQuery, { variables: { y: 0, a: 1, b: 4, c: 5 } })
     if (!loading && !error) {
-        const books = data.books
-        console.log(books)
         return (
-            books.map(book => {
-                return (
-                    <div>
-                        <h2>{book.name}</h2>
-                        <h3>{book.author.name}</h3>
-                    </div>
-                )
-            })
+            <div>
+                {data.solveQuadratic.roots[0]}, {data.solveQuadratic.roots[1]}
+            </div>
         )
     }
     else {
