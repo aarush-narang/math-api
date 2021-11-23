@@ -1,34 +1,31 @@
 const {
     GraphQLObjectType,
     GraphQLString,
-    GraphQLNonNull
+    GraphQLNonNull,
+    GraphQLList,
+    GraphQLScalarType,
+    GraphQLError
 } = require('graphql')
 
-
-const PasswordType = new GraphQLObjectType({
-    name: "Password",
-    description: "This represents a randomly generated password based on the query options provided.",
-    fields: () => ({
-        password: {
-            type: new GraphQLNonNull(GraphQLString)
-        },
-        strength: {
-            type: new GraphQLNonNull(GraphQLString)
-        }
-    })
+const GraphQLNumber = new GraphQLScalarType({
+    name: "GraphQLNumber",
+    parseValue(value) {
+        if(typeof value !== 'number') throw new GraphQLError("Value does not represent an integer or float.") // if the number is not an int or a float, return null otherwise return the value
+        return value
+    }
 })
 
-const UUIDType = new GraphQLObjectType({
-    name: "UUID",
-    description: "This represents a randomly generated UUID.",
+const QuadraticType = new GraphQLObjectType({
+    name: "Quadratic_Equation_Roots",
+    description: "This represents a quadratic equation's roots.",
     fields: () => ({
-        uuid: {
-            type: new GraphQLNonNull(GraphQLString)
-        }
+        roots: {
+            type: GraphQLList(GraphQLNonNull(GraphQLString))
+        },
     })
 })
 
 module.exports = {
-    PasswordType,
-    UUIDType
+    QuadraticType,
+    GraphQLNumber
 }
