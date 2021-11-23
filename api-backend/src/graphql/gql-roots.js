@@ -1,95 +1,45 @@
 const {
     GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt,
-    GraphQLBoolean
 } = require('graphql')
 const {
-    PasswordType,
-    UUIDType,
+    QuadraticType,
+    GraphQLNumber,
 } = require('./gql-types')
 const {
-    Password,
-    UUID
+    QuadEqSolver
 } = require('../query-functions/export-classes')
-const {
-    UserInputError
-} = require('apollo-server')
-
 
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
     description: 'Root Query',
     fields: () => ({
-        generatePassword: {
-            type: PasswordType,
-            description: 'Randomly generated password based on the query options provided.',
+        solveQuadratic: {
+            type: QuadraticType,
+            description: "Solve a quadratic equation that is in the form y = ax^2 + bx + c.",
             args: {
-                uppercase: {
-                    type: GraphQLBoolean,
-                    defaultValue: true
+                y: {
+                    type: GraphQLNumber,
                 },
-                lowercase: {
-                    type: GraphQLBoolean,
-                    defaultValue: true
+                a: {
+                    type: GraphQLNumber,
                 },
-                numbers: {
-                    type: GraphQLBoolean,
-                    defaultValue: false
+                b: {
+                    type: GraphQLNumber,
                 },
-                symbols: {
-                    type: GraphQLBoolean,
-                    defaultValue: false
-                },
-                includeCharacters: {
-                    type: GraphQLString,
-                    defaultValue: ''
-                },
-                excludeCharacters: {
-                    type: GraphQLString,
-                    defaultValue: ''
-                },
-                length: {
-                    type: GraphQLInt,
-                    defaultValue: 15
-                },
-            },
-            resolve: (parent, args) => {
-                try {
-                    const passwordGenerate = new Password(args.uppercase, args.lowercase, args.numbers, args.symbols, args.includeCharacters, args.excludeCharacters, args.length)
-                    const resp = passwordGenerate.generatePassword()
-                    return resp
-                } catch (error) {
-                    return new UserInputError(error.message)
-                }
-            }
-        },
-        generateUUID: {
-            type: UUIDType,
-            description: "Randomly or not randomly generated UUID based on the query options provided.",
-            args: {
-                version: {
-                    type: GraphQLInt,
-                    defaultValue: 4
-                },
-                name: {
-                    type: GraphQLString,
-                    defaultValue: "" // just use empty string if this is empty (assuming version 5)
-                },
-                namespace: {
-                    type: GraphQLString,
-                    defaultValue: "" // if empty, randomly generate a uuid using v4 and use that as namespace. (assuming version 5)
+                c: {
+                    type: GraphQLNumber,
                 }
             },
             resolve: (parent, args) => {
                 try {
-                    const uuidGenerate = new UUID(args.version, args.name, args.namespace)
-                    const uuid = uuidGenerate.generateUUID()
+                    const quadratic = new QuadEqSolver(args.y, args.a, args.b, args.c)
+                    const roots = quadratic.getRoots()
                     return {
-                        uuid
+                        roots
                     }
                 } catch (error) {
-                    return new UserInputError(error.message)
+                    console.log(error)
+                    return error
                 }
             }
         }
@@ -98,5 +48,4 @@ const RootQueryType = new GraphQLObjectType({
 
 module.exports = {
     RootQueryType,
-    // RootMutationType,
 }

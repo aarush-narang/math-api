@@ -1,7 +1,5 @@
-const { Password } = require('./random-password')
-const { UUID } = require('./random-uuid')
+const { QuadEqSolver } = require('./quadratic-equation-solver')
 
 module.exports = {
-    Password,
-    UUID
+    QuadEqSolver
 }
