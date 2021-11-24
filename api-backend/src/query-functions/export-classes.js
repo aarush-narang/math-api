@@ -1,5 +1,9 @@
-const { QuadEqSolver } = require('./quadratic-equation-solver')
+const { QuadraticEquation } = require('./quadeq')
+const { PolyRegression } = require('./polyreg')
+const { Stats } = require('./stats')
 
 module.exports = {
-    QuadEqSolver
+    QuadraticEquation,
+    PolyRegression,
+    Stats
 }
