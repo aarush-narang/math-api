@@ -118,7 +118,6 @@ class Stats {
         else if(this.mean < this.median) return 'skewed left'
         else return 'uniform'
     }
-    // add possibility to find probability of a certain value or between values (zscore probability)
 }
 
 module.exports = {
