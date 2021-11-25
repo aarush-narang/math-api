@@ -3,18 +3,21 @@ const {
     GraphQLList,
     GraphQLNonNull,
     GraphQLInt,
+    GraphQLBoolean,
 } = require('graphql')
 const {
     QuadraticType,
     GraphQLNumber,
     PolyRegType,
     StatsType,
+    DatasetType,
 } = require('./gql-types')
 const {
     QuadraticEquation,
     PolyRegression,
     Stats
 } = require('../query-functions/export-classes')
+const { GenerateDataset } = require('../query-functions/generateDataset')
 
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
@@ -81,6 +84,42 @@ const RootQueryType = new GraphQLObjectType({
                 try {
                     const stats = new Stats(args.values)
                     return stats.getStats()
+                } catch (error) {
+                    return error
+                }
+            }
+        },
+        generateDataset: {
+            type: DatasetType,
+            description: "Get a randomly generated dataset within a given range of numbers with a certain length",
+            args: {
+                max: {
+                    type: GraphQLNonNull(GraphQLNumber),
+                    description: "This represents the maximum of the randomly generated numbers"
+                },
+                min: {
+                    type: GraphQLNonNull(GraphQLNumber),
+                    description: "This represents the minimum of the randomly generated numbers"
+                },
+                length: {
+                    type: GraphQLNonNull(GraphQLInt),
+                    description: "This represents the length of the array of the randomly generated numbers"
+                },
+                float: {
+                    type: GraphQLNonNull(GraphQLBoolean),
+                    description: 'This represents a boolean which says whether to include numbers of type "float" in the dataset',
+                    defaultValue: true
+                },
+                precision: {
+                    type: GraphQLNonNull(GraphQLInt),
+                    description: 'If args.float is set to "true", then this field will be valid. It represents the number of significant digits to round the values in the array to.',
+                    defaultValue: 100
+                }
+            },
+            resolve: (parent, args) => {
+                try {
+                    const dataset = new GenerateDataset(args.min, args.max, args.length, args.float, args.precision)
+                    return dataset.generate()
                 } catch (error) {
                     return error
                 }

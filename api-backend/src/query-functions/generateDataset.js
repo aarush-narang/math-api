@@ -1,0 +1,40 @@
+const {
+    UserInputError
+} = require('apollo-server')
+
+const {
+    getRandomFloat,
+    getRandomInt,
+} = require('../util/util')
+
+class GenerateDataset {
+    constructor(min, max, length, float, precision) {
+        if (!float && (!Number.isInteger(min) || !Number.isInteger(max))) throw new UserInputError('Min and max values must also be of type "int" if float is "false".')
+        if (precision > 100) throw new UserInputError('The value of "precision" must be between 1 and 100.')
+        if (length <= 0) throw new UserInputError('Length must be greater than 0.')
+        if (length > 1000000 && !float) throw new UserInputError('For performance reasons, length cannot be greater than 1000000 if "float" is false')
+        if (length > 500000 && float) throw new UserInputError('For performance reasons, length cannot be greater than 500000 if "float" is true')
+
+        this.min = min
+        this.max = max
+        this.length = length
+        this.float = float
+        this.precision = precision
+    }
+    generate() {
+        let data
+        if (this.float) data = Array.from({
+            length: this.length
+        }, () => getRandomFloat(this.min, this.max).toPrecision(this.precision))
+        else data = Array.from({
+            length: this.length
+        }, () => getRandomInt(this.min, this.max))
+        return {
+            data
+        }
+    }
+}
+
+module.exports = {
+    GenerateDataset
+}

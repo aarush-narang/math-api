@@ -1,3 +1,4 @@
+const { UserInputError } = require('apollo-server-errors')
 const {
     GraphQLObjectType,
     GraphQLString,
@@ -17,7 +18,7 @@ const GraphQLNumber = new GraphQLScalarType({
 })
 
 const GraphQLObject = new GraphQLScalarType({
-    name: "ScoresType",
+    name: "GraphQLObject",
     description: "This represents an object",
     parseValue(value) {
         if (!(value instanceof Object)) throw new GraphQLError("Value does not represent an object") // if the number is not an int or a float, return null otherwise return the value
@@ -26,17 +27,17 @@ const GraphQLObject = new GraphQLScalarType({
 })
 
 const QuadraticType = new GraphQLObjectType({
-    name: "Quadratic_Equation",
+    name: "Quadratic",
     description: "This represents a quadratic equation's roots, y-int, and vertex.",
     fields: () => ({
         roots: {
-            type: GraphQLList(GraphQLNonNull(GraphQLString))
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLString))))
         },
         yIntercept: {
-            type: GraphQLList(GraphQLNonNull(GraphQLNumber))
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLNumber))))
         },
         vertex: {
-            type: GraphQLList(GraphQLNonNull(GraphQLNumber))
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLNumber))))
         }
     })
 })
@@ -46,11 +47,11 @@ const PolyRegType = new GraphQLObjectType({
     description: "This represents a line of best-fit for the data provided.",
     fields: () => ({
         coefficients: {
-            type: GraphQLList(GraphQLNonNull(GraphQLNumber)),
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLNumber))),
             description: "Coefficients of the equation"
         },
         equation: {
-            type: GraphQLList(GraphQLNonNull(GraphQLString)),
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLString))),
             description: "Equations (given in two forms)"
         },
         scores: {
@@ -107,10 +108,22 @@ const StatsType = new GraphQLObjectType({
     })
 })
 
+const DatasetType = new GraphQLObjectType({
+    name: "Dataset",
+    description: "This represents a set of data generated with the length given in the query",
+    fields: () => ({
+        data: {
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLNumber))),
+            description: "This represents an array of data within a given range of numbers and with a given length."
+        }
+    })
+})
+
 module.exports = {
     QuadraticType,
     GraphQLNumber,
     PolyRegType,
     GraphQLObject,
-    StatsType
+    StatsType,
+    DatasetType
 }
