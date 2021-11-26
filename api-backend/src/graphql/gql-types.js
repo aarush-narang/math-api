@@ -13,7 +13,7 @@ const GraphQLObject = new GraphQLScalarType({
     name: "GraphQLObject",
     description: "This represents an object",
     parseValue(value) {
-        if (!(value instanceof Object)) throw new GraphQLError("Value does not represent an object") // if the number is not an int or a float, return null otherwise return the value
+        if (!(value instanceof Object)) throw new GraphQLError("Value does not represent an object") // if the number is not an object, throw error, otherwise return the value
         return value
     }
 })
