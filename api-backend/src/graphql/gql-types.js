@@ -6,16 +6,8 @@ const {
     GraphQLList,
     GraphQLScalarType,
     GraphQLError,
+    GraphQLFloat,
 } = require('graphql')
-
-const GraphQLNumber = new GraphQLScalarType({
-    name: "GraphQLNumber",
-    description: "This represents an int or a float",
-    parseValue(value) {
-        if (typeof value !== 'number') throw new GraphQLError("Value does not represent an integer or float.") // if the number is not an int or a float, return null otherwise return the value
-        return value
-    }
-})
 
 const GraphQLObject = new GraphQLScalarType({
     name: "GraphQLObject",
@@ -34,10 +26,10 @@ const QuadraticType = new GraphQLObjectType({
             type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLString))))
         },
         yIntercept: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLNumber))))
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLFloat))))
         },
         vertex: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLNumber))))
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLFloat))))
         }
     })
 })
@@ -47,7 +39,7 @@ const PolyRegType = new GraphQLObjectType({
     description: "This represents a line of best-fit for the data provided.",
     fields: () => ({
         coefficients: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLNumber))),
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLFloat))),
             description: "Coefficients of the equation"
         },
         equation: {
@@ -66,39 +58,39 @@ const StatsType = new GraphQLObjectType({
     description: "This represents statistical information from a given array of values",
     fields: () => ({
         mean: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Mean of an array of values"
         },
         popsd: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Standard Deviation of an array of values of a population"
         },
         sampsd: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Standard Deviation of an array of values of a sample"
         },
         min: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Minimum value of an array of values"
         },
         q1: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Q1 of an array of values"
         },
         median: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Median of an array of values"
         },
         q3: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Q3 of an array of values"
         },
         max: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Maximum of an array of values"
         },
         iqr: {
-            type: GraphQLNonNull(GraphQLNumber),
+            type: GraphQLNonNull(GraphQLFloat),
             description: "Interquartile Range of an array of values"
         },
         skewness: {
@@ -112,18 +104,33 @@ const DatasetType = new GraphQLObjectType({
     name: "Dataset",
     description: "This represents a set of data generated with the length given in the query",
     fields: () => ({
-        data: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLNumber))),
+        values: {
+            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLFloat))),
             description: "This represents an array of data within a given range of numbers and with a given length."
+        }
+    })
+})
+
+const PercentageType = new GraphQLObjectType({
+    name: "Percentage",
+    description: "This represents the percentage of people within a given range of values",
+    fields: () => ({
+        zscores: {
+            type: GraphQLNonNull(GraphQLList(GraphQLFloat)),
+            description: 'This represents the zscore(s) of the values given'
+        },
+        percentage: {
+            type: GraphQLNonNull(GraphQLFloat),
+            description: 'This represents the percentage of people within a given range of values'
         }
     })
 })
 
 module.exports = {
     QuadraticType,
-    GraphQLNumber,
     PolyRegType,
     GraphQLObject,
     StatsType,
-    DatasetType
+    DatasetType,
+    PercentageType
 }

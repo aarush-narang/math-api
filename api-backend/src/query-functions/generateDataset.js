@@ -22,15 +22,15 @@ class GenerateDataset {
         this.precision = precision
     }
     generate() {
-        let data
-        if (this.float) data = Array.from({
+        let values
+        if (this.float) values = Array.from({
             length: this.length
         }, () => getRandomFloat(this.min, this.max).toPrecision(this.precision))
-        else data = Array.from({
+        else values = Array.from({
             length: this.length
         }, () => getRandomInt(this.min, this.max))
         return {
-            data
+            values
         }
     }
 }

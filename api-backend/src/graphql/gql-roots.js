@@ -4,20 +4,23 @@ const {
     GraphQLNonNull,
     GraphQLInt,
     GraphQLBoolean,
+    GraphQLFloat
 } = require('graphql')
 const {
     QuadraticType,
-    GraphQLNumber,
     PolyRegType,
     StatsType,
     DatasetType,
+    PercentageType,
 } = require('./gql-types')
 const {
     QuadraticEquation,
     PolyRegression,
-    Stats
+    Stats,
+    GenerateDataset,
+    Percentile
 } = require('../query-functions/export-classes')
-const { GenerateDataset } = require('../query-functions/generateDataset')
+
 
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
@@ -28,16 +31,16 @@ const RootQueryType = new GraphQLObjectType({
             description: "Solve a quadratic equation that is in the form y = ax^2 + bx + c.",
             args: {
                 y: {
-                    type: GraphQLNumber,
+                    type: GraphQLFloat,
                 },
                 a: {
-                    type: GraphQLNumber,
+                    type: GraphQLFloat,
                 },
                 b: {
-                    type: GraphQLNumber,
+                    type: GraphQLFloat,
                 },
                 c: {
-                    type: GraphQLNumber,
+                    type: GraphQLFloat,
                 }
             },
             resolve: (parent, args) => {
@@ -54,10 +57,10 @@ const RootQueryType = new GraphQLObjectType({
             description: 'Get a polynomial regression equation along with r^2 values and more.',
             args: {
                 x: {
-                    type: GraphQLList(GraphQLNonNull(GraphQLNumber))
+                    type: GraphQLList(GraphQLNonNull(GraphQLFloat))
                 },
                 y: {
-                    type: GraphQLList(GraphQLNonNull(GraphQLNumber))
+                    type: GraphQLList(GraphQLNonNull(GraphQLFloat))
                 },
                 highestDegree: {
                     type: GraphQLNonNull(GraphQLInt)
@@ -77,7 +80,7 @@ const RootQueryType = new GraphQLObjectType({
             description: "Get statistical information from given values",
             args: {
                 values: {
-                    type: GraphQLNonNull(GraphQLList(GraphQLNumber))
+                    type: GraphQLNonNull(GraphQLList(GraphQLFloat))
                 }
             },
             resolve: (parent, args) => {
@@ -94,11 +97,11 @@ const RootQueryType = new GraphQLObjectType({
             description: "Get a randomly generated dataset within a given range of numbers with a certain length",
             args: {
                 max: {
-                    type: GraphQLNonNull(GraphQLNumber),
+                    type: GraphQLNonNull(GraphQLFloat),
                     description: "This represents the maximum of the randomly generated numbers"
                 },
                 min: {
-                    type: GraphQLNonNull(GraphQLNumber),
+                    type: GraphQLNonNull(GraphQLFloat),
                     description: "This represents the minimum of the randomly generated numbers"
                 },
                 length: {
@@ -120,6 +123,36 @@ const RootQueryType = new GraphQLObjectType({
                 try {
                     const dataset = new GenerateDataset(args.min, args.max, args.length, args.float, args.precision)
                     return dataset.generate()
+                } catch (error) {
+                    return error
+                }
+            }
+        },
+        getPercentage: {
+            type: PercentageType,
+            description: "Get the percentage of people within a given range of values",
+            args: {
+                min: {
+                    type: GraphQLFloat,
+                    description: "If only a minimum value is provided, this will find the percentage of people above the minimum value"
+                },
+                max: {
+                    type: GraphQLFloat,
+                    description: "If only a maximum value is provided, this will find the percentage of people below the maximum value"
+                },
+                sd: {
+                    type: GraphQLNonNull(GraphQLFloat),
+                    description: "This value is required to calculate the percentage"
+                },
+                mean: {
+                    type: GraphQLNonNull(GraphQLFloat),
+                    description: "This value is required to calculate the percentage"
+                }
+            },
+            resolve: (parent, args) => {
+                try {
+                    const percentage = new Percentile(args.min, args.max, args.sd, args.mean)
+                    return percentage.getPercentage()
                 } catch (error) {
                     return error
                 }
