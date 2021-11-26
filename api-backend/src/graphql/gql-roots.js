@@ -130,7 +130,7 @@ const RootQueryType = new GraphQLObjectType({
         },
         getPercentage: {
             type: PercentageType,
-            description: "Get the percentage of people within a given range of values",
+            description: "Get the percentage of data within a given range of values",
             args: {
                 min: {
                     type: GraphQLFloat,
