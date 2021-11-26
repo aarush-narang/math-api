@@ -113,7 +113,7 @@ const DatasetType = new GraphQLObjectType({
 
 const PercentageType = new GraphQLObjectType({
     name: "Percentage",
-    description: "This represents the percentage of people within a given range of values",
+    description: "This represents the percentage of data within a given range of values",
     fields: () => ({
         zscores: {
             type: GraphQLNonNull(GraphQLList(GraphQLFloat)),
@@ -121,7 +121,7 @@ const PercentageType = new GraphQLObjectType({
         },
         percentage: {
             type: GraphQLNonNull(GraphQLFloat),
-            description: 'This represents the percentage of people within a given range of values'
+            description: 'This represents the percentage of data within a given range of values'
         }
     })
 })
