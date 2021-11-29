@@ -6,7 +6,7 @@ import json
 def main():
     length = 200 # number of points returned
     eq = [25, -10, 5] # coefficients of the equation in ascending order of power
-    spread = 1200 # relative distance the points will be from the line
+    spread = 700 # relative distance the points will be from the line
     minX = -20 # minimum x value
     maxX = 20 # maximum x value
 
