@@ -3,9 +3,9 @@ const {
 } = require('apollo-server')
 
 class QuadraticEquation {
-    constructor(y = 0, a = 0, b = 0, c = 0) { // quadratic equation coefficients given (in form y = ax^2 + bx + c)
-        if (a === 0) throw new UserInputError('"a" must equal to a value greater than 0')
-        if (b === 0 && c === 0) throw new UserInputError("At least one of the coefficients must have a value greater than 0 to solve the quadratic equation.")
+    constructor(y, a, b, c) { // quadratic equation coefficients given (in form y = ax^2 + bx + c)
+        if (a === 0) throw new UserInputError('Coefficient "a" must be a value not equal to 0')
+        if (a === 0 && b === 0 && c === 0) throw new UserInputError("At least one of the coefficients must have a value greater than 0 to solve the quadratic equation.")
         if (y != 0) c -= y // if y is not equal to 0, subtract y from both sides to make one side equal to 0
         this.a = a
         this.b = b

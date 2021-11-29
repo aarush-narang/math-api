@@ -8,7 +8,6 @@ const {
 	GraphQLSchema
 } = require('graphql')
 const {
-	// RootMutationType,
 	RootQueryType
 } = require('./graphql/gql-roots')
 

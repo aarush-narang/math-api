@@ -12,7 +12,7 @@ const GraphQLObject = new GraphQLScalarType({
     name: "GraphQLObject",
     description: "This represents an object",
     parseValue(value) {
-        if (!(value instanceof Object)) throw new GraphQLError("Value does not represent an object") // if the number is not an object, throw error, otherwise return the value
+        if (!(value instanceof Object)) throw new GraphQLError("Value does not represent an object") // if the value is not an object, throw error, otherwise return the value
         return value
     }
 })
@@ -28,6 +28,19 @@ const QuadraticType = new GraphQLObjectType({
             type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull((GraphQLFloat))))
         },
         vertex: {
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull((GraphQLFloat))))
+        }
+    })
+})
+
+const CubicType = new GraphQLObjectType({
+    name: "Cubic",
+    description: "This represents a cubic equation's roots and y-int.",
+    fields: () => ({
+        roots: {
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull((GraphQLFloat))))
+        },
+        yIntercept: {
             type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull((GraphQLFloat))))
         }
     })
@@ -142,6 +155,7 @@ const PointsType = new GraphQLObjectType({
 
 module.exports = {
     QuadraticType,
+    CubicType,
     PolyRegType,
     GraphQLObject,
     StatsType,

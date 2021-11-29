@@ -13,6 +13,7 @@ const {
     DatasetType,
     PercentageType,
     PointsType,
+    CubicType,
 } = require('./gql-types')
 const {
     QuadraticEquation,
@@ -20,7 +21,8 @@ const {
     Stats,
     GenerateDataset,
     Percentile,
-    GeneratePoints
+    GeneratePoints,
+    CubicEquation
 } = require('../query-functions/export-classes')
 
 
@@ -33,16 +35,20 @@ const RootQueryType = new GraphQLObjectType({
             description: "Solve a quadratic equation that is in the form y = ax^2 + bx + c.",
             args: {
                 y: {
-                    type: GraphQLFloat,
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
                 },
                 a: {
-                    type: GraphQLFloat,
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
                 },
                 b: {
-                    type: GraphQLFloat,
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
                 },
                 c: {
-                    type: GraphQLFloat,
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
                 }
             },
             resolve: (parent, args) => {
@@ -50,6 +56,41 @@ const RootQueryType = new GraphQLObjectType({
                     const quadratic = new QuadraticEquation(args.y, args.a, args.b, args.c)
                     return quadratic.solveEquation()
                 } catch (error) {
+                    return error
+                }
+            }
+        },
+        solveCubic: {
+            type: CubicType,
+            description: "Solve a cubic equation that is in the form y = ax^3 + bx^2 + cx + d.",
+            args: {
+                y: {
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
+                },
+                a: {
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
+                },
+                b: {
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
+                },
+                c: {
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
+                },
+                d: {
+                    type: new GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0
+                }
+            },
+            resolve: (parent, args) => {
+                try {
+                    const cubic = new CubicEquation(args.y, args.a, args.b, args.c, args.d)
+                    return cubic.solveEquation()
+                } catch (error) {
+                    console.log(error)
                     return error
                 }
             }

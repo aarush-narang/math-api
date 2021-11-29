@@ -4,6 +4,7 @@ const { Stats } = require('./stats')
 const { GenerateDataset } = require('./generateDataset')
 const { Percentile } = require('./getPercentile')
 const { GeneratePoints } = require('./generatePoints')
+const { CubicEquation } = require('./cubiceq')
 
 module.exports = {
     QuadraticEquation,
@@ -11,5 +12,6 @@ module.exports = {
     Stats,
     GenerateDataset,
     Percentile,
-    GeneratePoints
+    GeneratePoints,
+    CubicEquation
 }
