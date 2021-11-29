@@ -29,7 +29,6 @@ app.use(cors({
 
 const schema = new GraphQLSchema({
 	query: RootQueryType,
-	// mutation: RootMutationType
 })
 app.use('/graphql', graphqlHTTP({
 	schema: schema,

@@ -59,13 +59,13 @@ const RootQueryType = new GraphQLObjectType({
             description: 'Get a polynomial regression equation along with r^2 values and more.',
             args: {
                 x: {
-                    type: GraphQLList(GraphQLNonNull(GraphQLFloat))
+                    type: new GraphQLList(new GraphQLNonNull(GraphQLFloat))
                 },
                 y: {
-                    type: GraphQLList(GraphQLNonNull(GraphQLFloat))
+                    type: new GraphQLList(new GraphQLNonNull(GraphQLFloat))
                 },
                 highestDegree: {
-                    type: GraphQLNonNull(GraphQLInt)
+                    type: new GraphQLNonNull(GraphQLInt)
                 }
             },
             resolve: (parent, args) => {
@@ -82,7 +82,7 @@ const RootQueryType = new GraphQLObjectType({
             description: "Get statistical information from given values",
             args: {
                 values: {
-                    type: GraphQLNonNull(GraphQLList(GraphQLFloat))
+                    type: new GraphQLNonNull(new GraphQLList(GraphQLFloat))
                 }
             },
             resolve: (parent, args) => {
@@ -99,24 +99,24 @@ const RootQueryType = new GraphQLObjectType({
             description: "Get a randomly generated dataset within a given range of numbers with a certain length",
             args: {
                 max: {
-                    type: GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat),
                     description: "This represents the maximum of the randomly generated numbers"
                 },
                 min: {
-                    type: GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat),
                     description: "This represents the minimum of the randomly generated numbers"
                 },
                 length: {
-                    type: GraphQLNonNull(GraphQLInt),
+                    type: new GraphQLNonNull(GraphQLInt),
                     description: "This represents the length of the array of the randomly generated numbers"
                 },
                 float: {
-                    type: GraphQLNonNull(GraphQLBoolean),
+                    type: new GraphQLNonNull(GraphQLBoolean),
                     description: 'This represents a boolean which says whether to include numbers of type "float" in the dataset',
                     defaultValue: true
                 },
                 precision: {
-                    type: GraphQLNonNull(GraphQLInt),
+                    type: new GraphQLNonNull(GraphQLInt),
                     description: 'If args.float is set to "true", then this field will be valid. It represents the number of significant digits to round the values in the array to.',
                     defaultValue: 100
                 }
@@ -143,11 +143,11 @@ const RootQueryType = new GraphQLObjectType({
                     description: "If only a maximum value is provided, this will find the percentage of people below the maximum value"
                 },
                 sd: {
-                    type: GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat),
                     description: "This value is required to calculate the percentage"
                 },
                 mean: {
-                    type: GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat),
                     description: "This value is required to calculate the percentage"
                 }
             },
@@ -165,25 +165,25 @@ const RootQueryType = new GraphQLObjectType({
             description: "Get two arrays of values that represent coordinate points that are generated around a given line",
             args: {
                 spread: {
-                    type: GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat),
                     defaultValue: 0,
                     description: 'This represents the spread, or the relative distance the points will be from the line.'
                 },
                 minX: {
-                    type: GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat),
                     defaultValue: 0,
                     description: 'This represents the minimum x value a point can have'
                 },
                 maxX: {
-                    type: GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat),
                     description: 'This represents the maximum x value a point can have'
                 },
                 length: {
-                    type: GraphQLNonNull(GraphQLInt),
+                    type: new GraphQLNonNull(GraphQLInt),
                     description: 'This represents the number of points that will be generated'
                 },
                 equation: {
-                    type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLFloat))),
+                    type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
                     description: 'This represents an equation of any power given in an array of coefficients in ascending order of power'
                 }
             },

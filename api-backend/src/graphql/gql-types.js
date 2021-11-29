@@ -1,4 +1,3 @@
-const { UserInputError } = require('apollo-server-errors')
 const {
     GraphQLObjectType,
     GraphQLString,
@@ -7,7 +6,6 @@ const {
     GraphQLScalarType,
     GraphQLError,
     GraphQLFloat,
-    GraphQLInt,
 } = require('graphql')
 
 const GraphQLObject = new GraphQLScalarType({
@@ -24,13 +22,13 @@ const QuadraticType = new GraphQLObjectType({
     description: "This represents a quadratic equation's roots, y-int, and vertex.",
     fields: () => ({
         roots: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLString))))
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull((GraphQLString))))
         },
         yIntercept: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLFloat))))
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull((GraphQLFloat))))
         },
         vertex: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull((GraphQLFloat))))
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull((GraphQLFloat))))
         }
     })
 })
@@ -40,15 +38,15 @@ const PolyRegType = new GraphQLObjectType({
     description: "This represents a line of best-fit for the data provided.",
     fields: () => ({
         coefficients: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLFloat))),
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
             description: "Coefficients of the equation"
         },
         equation: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLString))),
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLString))),
             description: "Equations (given in two forms)"
         },
         scores: {
-            type: GraphQLNonNull(GraphQLObject),
+            type: new GraphQLNonNull(GraphQLObject),
             description: "Scores of the equation (including r, r^2, and more)"
         }
     })
@@ -59,43 +57,43 @@ const StatsType = new GraphQLObjectType({
     description: "This represents statistical information from a given array of values",
     fields: () => ({
         mean: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Mean of an array of values"
         },
         popsd: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Standard Deviation of an array of values of a population"
         },
         sampsd: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Standard Deviation of an array of values of a sample"
         },
         min: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Minimum value of an array of values"
         },
         q1: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Q1 of an array of values"
         },
         median: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Median of an array of values"
         },
         q3: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Q3 of an array of values"
         },
         max: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Maximum of an array of values"
         },
         iqr: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: "Interquartile Range of an array of values"
         },
         skewness: {
-            type: GraphQLNonNull(GraphQLString),
+            type: new GraphQLNonNull(GraphQLString),
             description: "Skewness of an array of values"
         }
     })
@@ -106,7 +104,7 @@ const DatasetType = new GraphQLObjectType({
     description: "This represents a set of data generated with the length given in the query",
     fields: () => ({
         values: {
-            type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLFloat))),
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
             description: "This represents an array of data within a given range of numbers and with a given length."
         }
     })
@@ -117,11 +115,11 @@ const PercentageType = new GraphQLObjectType({
     description: "This represents the percentage of data within a given range of values",
     fields: () => ({
         zscores: {
-            type: GraphQLNonNull(GraphQLList(GraphQLFloat)),
+            type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
             description: 'This represents the zscore(s) of the values given'
         },
         percentage: {
-            type: GraphQLNonNull(GraphQLFloat),
+            type: new GraphQLNonNull(GraphQLFloat),
             description: 'This represents the percentage of data within a given range of values'
         }
     })
@@ -132,11 +130,11 @@ const PointsType = new GraphQLObjectType({
     description: "This represents randomly generated points in an array of a given length around a given line with a given spread",
     fields: () => ({
         xpoints: {
-            type: GraphQLNonNull(GraphQLList(GraphQLFloat)),
+            type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
             description: 'This represents an array of x-values of coordinate points in which each index corresponds with the same index of the array of y-values returned'
         },
         ypoints: {
-            type: GraphQLNonNull(GraphQLList(GraphQLFloat)),
+            type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
             description: 'This represents an array of y-values of coordinate points in which each index corresponds with the same index of the array of x-values returned'
         }
     })

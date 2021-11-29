@@ -7,7 +7,6 @@ class GeneratePoints {
     constructor(spread, len, eq, minX, maxX) {
         if (!(eq instanceof Array)) throw new UserInputError('Equation must be given in an array of coefficients in descending order of power. The highest power will be automatically interpreted. 0\'s are allowed.')
 
-
         this.spread = spread
         this.len = len
         this.eq = eq
