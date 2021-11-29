@@ -11,7 +11,7 @@ def main():
     maxX = 20 # maximum x value
 
     x = np.linspace(minX, maxX, length)
-    y = 5*x**2 - 10*x + 25 # make a function to parse equation of coefficients
+    y = 5*x**2 - 10*x + 25 
     plt.figure(figsize = (12, 6))
 
     plt.plot(x, y) # plot the line
