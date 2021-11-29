@@ -3,6 +3,9 @@ import numpy as np
 import requests
 import json
 
+"""
+This query shows an application of the "generatePoints" query and how the request is sent and parsed.
+"""
 def main():
     length = 200 # number of points returned
     eq = [25, -10, 5] # coefficients of the equation in ascending order of power
