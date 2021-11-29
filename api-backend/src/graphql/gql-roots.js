@@ -12,13 +12,15 @@ const {
     StatsType,
     DatasetType,
     PercentageType,
+    PointsType,
 } = require('./gql-types')
 const {
     QuadraticEquation,
     PolyRegression,
     Stats,
     GenerateDataset,
-    Percentile
+    Percentile,
+    GeneratePoints
 } = require('../query-functions/export-classes')
 
 
@@ -153,6 +155,42 @@ const RootQueryType = new GraphQLObjectType({
                 try {
                     const percentage = new Percentile(args.min, args.max, args.sd, args.mean)
                     return percentage.getPercentage()
+                } catch (error) {
+                    return error
+                }
+            }
+        },
+        generatePoints: {
+            type: PointsType,
+            description: "Get two arrays of values that represent coordinate points that are generated around a given line",
+            args: {
+                spread: {
+                    type: GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0,
+                    description: 'This represents the spread, or the relative distance the points will be from the line.'
+                },
+                minX: {
+                    type: GraphQLNonNull(GraphQLFloat),
+                    defaultValue: 0,
+                    description: 'This represents the minimum x value a point can have'
+                },
+                maxX: {
+                    type: GraphQLNonNull(GraphQLFloat),
+                    description: 'This represents the maximum x value a point can have'
+                },
+                length: {
+                    type: GraphQLNonNull(GraphQLInt),
+                    description: 'This represents the number of points that will be generated'
+                },
+                equation: {
+                    type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLFloat))),
+                    description: 'This represents an equation of any power given in an array of coefficients in ascending order of power'
+                }
+            },
+            resolve: (parent, args) => {
+                try {
+                    const points = new GeneratePoints(args.spread, args.length, args.equation, args.minX, args.maxX)
+                    return points.getPoints()
                 } catch (error) {
                     return error
                 }

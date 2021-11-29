@@ -7,6 +7,7 @@ const {
     GraphQLScalarType,
     GraphQLError,
     GraphQLFloat,
+    GraphQLInt,
 } = require('graphql')
 
 const GraphQLObject = new GraphQLScalarType({
@@ -126,11 +127,27 @@ const PercentageType = new GraphQLObjectType({
     })
 })
 
+const PointsType = new GraphQLObjectType({
+    name: "Points",
+    description: "This represents randomly generated points in an array of a given length around a given line with a given spread",
+    fields: () => ({
+        xpoints: {
+            type: GraphQLNonNull(GraphQLList(GraphQLFloat)),
+            description: 'This represents an array of x-values of coordinate points in which each index corresponds with the same index of the array of y-values returned'
+        },
+        ypoints: {
+            type: GraphQLNonNull(GraphQLList(GraphQLFloat)),
+            description: 'This represents an array of y-values of coordinate points in which each index corresponds with the same index of the array of x-values returned'
+        }
+    })
+})
+
 module.exports = {
     QuadraticType,
     PolyRegType,
     GraphQLObject,
     StatsType,
     DatasetType,
-    PercentageType
+    PercentageType,
+    PointsType
 }
