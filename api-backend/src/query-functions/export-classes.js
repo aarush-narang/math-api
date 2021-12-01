@@ -1,10 +1,10 @@
-const { QuadraticEquation } = require('./quadeq')
-const { PolyRegression } = require('./polyreg')
-const { Stats } = require('./stats')
+const { QuadraticEquation } = require('./solveQuadratic')
+const { PolyRegression } = require('./getPolyReg')
+const { Stats } = require('./getStats')
 const { GenerateDataset } = require('./generateDataset')
 const { Percentile } = require('./getPercentile')
 const { GeneratePoints } = require('./generatePoints')
-const { CubicEquation } = require('./cubiceq')
+const { CubicEquation } = require('./solveCubic')
 
 module.exports = {
     QuadraticEquation,
