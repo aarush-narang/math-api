@@ -13,7 +13,7 @@ class Percentile {
         this.sd = sd
         this.mean = mean
     }
-    getPercentage() {
+    getPercentile() {
         const calculateZScore = (value, sd, mean) => { // calculates zscore
             if(!value) return null
             return ((value - mean) / sd).toPrecision(3)
@@ -44,9 +44,9 @@ class Percentile {
         const minP = calculatePercentile(z1) || null
         const maxP = calculatePercentile(z2) || null
 
-        if(!this.min) return { percentage: Number(maxP.toPrecision(4)), zscores: [z1, z2] }
-        else if(!this.max) return { percentage: Number((1 - minP).toPrecision(4)), zscores: [z1, z2] }
-        else return { percentage: Number((maxP - minP).toPrecision(4)), zscores: [z1, z2] }
+        if(!this.min) return { percentile: Number(maxP.toPrecision(4)), zscores: [z1, z2] }
+        else if(!this.max) return { percentile: Number((1 - minP).toPrecision(4)), zscores: [z1, z2] }
+        else return { percentile: Number((maxP - minP).toPrecision(4)), zscores: [z1, z2] }
     }
 }
 

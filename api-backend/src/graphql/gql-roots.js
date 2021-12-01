@@ -11,7 +11,7 @@ const {
     PolyRegType,
     StatsType,
     DatasetType,
-    PercentageType,
+    PercentileType,
     PointsType,
     CubicType,
 } = require('./gql-types')
@@ -171,8 +171,8 @@ const RootQueryType = new GraphQLObjectType({
                 }
             }
         },
-        getPercentage: {
-            type: PercentageType,
+        getPercentile: {
+            type: PercentileType,
             description: "Get the percentage of data within a given range of values",
             args: {
                 min: {
@@ -195,7 +195,7 @@ const RootQueryType = new GraphQLObjectType({
             resolve: (parent, args) => {
                 try {
                     const percentage = new Percentile(args.min, args.max, args.sd, args.mean)
-                    return percentage.getPercentage()
+                    return percentage.getPercentile()
                 } catch (error) {
                     return error
                 }

@@ -28,15 +28,16 @@ def main():
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    vals = requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}) {{ xpoints ypoints }} }}'}) 
-    vals = json.loads(vals.content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}) {{ xvalues yvalues }} }}'}).content.decode())
+    if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
-    points = vals['data']['generatePoints']
-    xvals = points['xpoints']
-    yvals = points['ypoints']
+    points = res['data']['generatePoints']
+    xvals = points['xvalues']
+    yvals = points['yvalues']
+
     plt.scatter(xvals, yvals)
-
     plt.show()
+
 
 if __name__ == '__main__':
     main()

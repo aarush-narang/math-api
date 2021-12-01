@@ -29,20 +29,20 @@ class GeneratePoints {
             return (Math.random() * (max-min)) + min
         }
 
-        const xpoints = []
-        const ypoints = []
+        const xvalues = []
+        const yvalues = []
 
         for(let x = this.minX; x < this.maxX; x += (this.maxX - this.minX)/this.len) { // gets x values
             const xval = Math.random() + x
-            xpoints.push(xval)
+            xvalues.push(xval)
         }
-        for(let xindex = 0; xindex < xpoints.length; xindex++) { // gets y values from x values
-            ypoints.push(getYVal(this.eq, xpoints[xindex]) + getAdd(this.spread))
+        for(let xindex = 0; xindex < xvalues.length; xindex++) { // gets y values from x values
+            yvalues.push(getYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
         }
 
         return {
-            xpoints,
-            ypoints
+            xvalues,
+            yvalues
         }
     }
 }

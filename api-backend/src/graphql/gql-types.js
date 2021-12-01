@@ -123,7 +123,7 @@ const DatasetType = new GraphQLObjectType({
     })
 })
 
-const PercentageType = new GraphQLObjectType({
+const PercentileType = new GraphQLObjectType({
     name: "Percentage",
     description: "This represents the percentage of data within a given range of values",
     fields: () => ({
@@ -131,7 +131,7 @@ const PercentageType = new GraphQLObjectType({
             type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
             description: 'This represents the zscore(s) of the values given'
         },
-        percentage: {
+        percentile: {
             type: new GraphQLNonNull(GraphQLFloat),
             description: 'This represents the percentage of data within a given range of values'
         }
@@ -142,11 +142,11 @@ const PointsType = new GraphQLObjectType({
     name: "Points",
     description: "This represents randomly generated points in an array of a given length around a given line with a given spread",
     fields: () => ({
-        xpoints: {
+        xvalues: {
             type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
             description: 'This represents an array of x-values of coordinate points in which each index corresponds with the same index of the array of y-values returned'
         },
-        ypoints: {
+        yvalues: {
             type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
             description: 'This represents an array of y-values of coordinate points in which each index corresponds with the same index of the array of x-values returned'
         }
@@ -160,6 +160,6 @@ module.exports = {
     GraphQLObject,
     StatsType,
     DatasetType,
-    PercentageType,
+    PercentileType,
     PointsType
 }
