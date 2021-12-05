@@ -193,7 +193,7 @@ class Triangle {
         const sides = [a, b, c]
 
         // checks for any undefined values in the sides/angles
-        for (const num of angles.concat(sides)) { 
+        for (const num of angles.concat(sides)) {
             if (!num) throw new Error('Triangle is not solvable')
         }
 
@@ -213,17 +213,14 @@ class Triangle {
         const median_c = Math.sqrt(((c / 2) ** 2 + b ** 2) - (b * c * Math.cos(A / 180 * Math.PI)))
         const medians = [median_a, median_b, median_c]
         // name
+        
         let name = ''
-        for(const angle of angles) {
-            if(angle > 90) {
-                name += 'obtuse '
-                break
-            }
-        }
-        if(!name.includes('obtuse')) name += 'acute '
+        if (angles.some(val => val > 90)) {
+            name += 'obtuse '
+        } else name += 'acute '
 
-        if(new Set(angles).size === 1) name += 'equalateral triangle'
-        else if(new Set(angles).size === 3) name += 'scalene triangle'
+        if (new Set(angles).size === 1) name += 'equalateral triangle'
+        else if (new Set(angles).size === 3) name += 'scalene triangle'
         else name += 'isosceles triangle'
 
         return {
