@@ -14,6 +14,7 @@ const {
     PercentileType,
     PointsType,
     CubicType,
+    TriangleType,
 } = require('./gql-types')
 const {
     QuadraticEquation,
@@ -22,7 +23,8 @@ const {
     GenerateDataset,
     Percentile,
     GeneratePoints,
-    CubicEquation
+    CubicEquation,
+    Triangle
 } = require('../query-functions/export-classes')
 
 
@@ -236,7 +238,29 @@ const RootQueryType = new GraphQLObjectType({
                     return error
                 }
             }
-        }
+        },
+        solveTriangle: {
+            type: TriangleType,
+            description: "Solve a triangle by giving a minimum of 3 sides or angles (you could do 1 side, 2 angles, 2 sides 2 angles, etc.)",
+            args: {
+                sides: {
+                    type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
+                    description: 'This represents the sides given as an array'
+                },
+                angles: {
+                    type: new GraphQLNonNull(new GraphQLList(GraphQLFloat)),
+                    description: 'This represents the angles given as an array'
+                },
+            },
+            resolve: (parent, args) => {
+                try {
+                    const triangle = new Triangle(args.sides, args.angles)
+                    return triangle.solveTriangle()
+                } catch (error) {
+                    return error
+                }
+            }
+        },
     })
 })
 

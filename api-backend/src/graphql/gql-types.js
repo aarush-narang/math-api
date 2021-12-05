@@ -153,6 +153,45 @@ const PointsType = new GraphQLObjectType({
     })
 })
 
+const TriangleType = new GraphQLObjectType({
+    name: "Triangle",
+    description: "This represents an array of lengths and degrees of a Triangle given 3 lengths or degrees or a mixture of both.",
+    fields: () => ({
+        sides: {
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
+            description: "The sides will come in the order of [a, b, c]"
+        },
+        angles: {
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
+            description: "The angles will come in the order of [A, B, C]"
+        },
+        area: {
+            type: new GraphQLNonNull(GraphQLFloat),
+            description: "Area of the (now) solved triangle"
+        },
+        perimeter: {
+            type: new GraphQLNonNull(GraphQLFloat),
+            description: "Perimeter of the (now) solved triangle"
+        },
+        semiPerimeter: {
+            type: new GraphQLNonNull(GraphQLFloat),
+            description: "Semi-Perimeter of the (now) solved triangle"
+        },
+        heights: {
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
+            description: "The heights will come in the order of [height from angle a, height from angle b, height from angle c]. The height represents the distance between an angle and the opposite side, creating a right angle with the side."
+        },
+        medians: {
+            type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
+            description: "The medians will come in the order of [median from angle a, median from angle b, median from angle c]. The median represents the distance between an angle and the opposite side, connecting in the middle of the side."
+        },
+        name: {
+            type: new GraphQLNonNull(GraphQLString),
+            description: "The name of the triangle (ex: acute isosceles triangle, or obtuse scalene triangle)"
+        }
+    })
+})
+
 module.exports = {
     QuadraticType,
     CubicType,
@@ -161,5 +200,6 @@ module.exports = {
     StatsType,
     DatasetType,
     PercentileType,
-    PointsType
+    PointsType,
+    TriangleType
 }
