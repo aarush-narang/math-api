@@ -123,6 +123,15 @@ const DatasetType = new GraphQLObjectType({
     })
 })
 
+const DatasetOrderInputType = new GraphQLScalarType({
+    name: "DatasetOrderInputType",
+    description: "This represents a value of 1, 0, or -1. 1 means that the order will be ascending, -1 means descending, while 0 leaves the values in a random order",
+    parseValue(value) {
+        if (![-1, 0, 1].includes(value)) throw new GraphQLError("Order value is not equal to -1, 0, or 1") // if the value is not equal to -1, 0, or 1 throw error
+        return value
+    }
+})
+
 const PercentileType = new GraphQLObjectType({
     name: "Percentage",
     description: "This represents the percentage of data within a given range of values",
@@ -199,6 +208,7 @@ module.exports = {
     GraphQLObject,
     StatsType,
     DatasetType,
+    DatasetOrderInputType,
     PercentileType,
     PointsType,
     TriangleType

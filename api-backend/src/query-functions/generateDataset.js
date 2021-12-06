@@ -8,7 +8,7 @@ const {
 } = require('../util/util')
 
 class GenerateDataset {
-    constructor(min, max, length, float, precision) {
+    constructor(min, max, length, float, precision, order) {
         if (!float && (!Number.isInteger(min) || !Number.isInteger(max))) throw new UserInputError('Min and max values must also be of type "int" if float is "false".')
         if (precision > 100) throw new UserInputError('The value of "precision" must be between 1 and 100.')
         if (length <= 0) throw new UserInputError('Length must be greater than 0.')
@@ -20,6 +20,7 @@ class GenerateDataset {
         this.length = length
         this.float = float
         this.precision = precision
+        this.order = order
     }
     generate() {
         let values
@@ -29,6 +30,10 @@ class GenerateDataset {
         else values = Array.from({
             length: this.length
         }, () => getRandomInt(this.min, this.max))
+
+        if (this.order === -1) values = values.sort((a, b) => b - a)
+        else if (this.order === 1) values = values.sort((a, b) => a - b)
+
         return {
             values
         }

@@ -15,6 +15,7 @@ const {
     PointsType,
     CubicType,
     TriangleType,
+    DatasetOrderInputType,
 } = require('./gql-types')
 const {
     QuadraticEquation,
@@ -162,11 +163,16 @@ const RootQueryType = new GraphQLObjectType({
                     type: new GraphQLNonNull(GraphQLInt),
                     description: 'If args.float is set to "true", then this field will be valid. It represents the number of significant digits to round the values in the array to.',
                     defaultValue: 100
+                },
+                order: {
+                    type: new GraphQLNonNull(DatasetOrderInputType),
+                    description: 'This represents a value of -1, 0, or 1. 1 means that the order will be ascending, -1 means descending, while 0 leaves the values in a random order',
+                    defaultValue: 0
                 }
             },
             resolve: (parent, args) => {
                 try {
-                    const dataset = new GenerateDataset(args.min, args.max, args.length, args.float, args.precision)
+                    const dataset = new GenerateDataset(args.min, args.max, args.length, args.float, args.precision, args.order)
                     return dataset.generate()
                 } catch (error) {
                     return error
