@@ -4,7 +4,8 @@ const {
     GraphQLNonNull,
     GraphQLInt,
     GraphQLBoolean,
-    GraphQLFloat
+    GraphQLFloat,
+    GraphQLString
 } = require('graphql')
 const {
     QuadraticType,
@@ -16,6 +17,7 @@ const {
     CubicType,
     TriangleType,
     DatasetOrderInputType,
+    PointsGraphsType,
 } = require('./gql-types')
 const {
     QuadraticEquation,
@@ -231,6 +233,11 @@ const RootQueryType = new GraphQLObjectType({
                     type: new GraphQLNonNull(GraphQLInt),
                     description: 'This represents the number of points that will be generated'
                 },
+                graphType: {
+                    type: new GraphQLNonNull(PointsGraphsType),
+                    description: 'This represents the type of graph the points will be generated around. (ex: polynomial, log, logistic, sin, cos, etc.)',
+                    defaultValue: 'polynomial'
+                },
                 equation: {
                     type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
                     description: 'This represents an equation of any power given in an array of coefficients in ascending order of power'
@@ -238,7 +245,7 @@ const RootQueryType = new GraphQLObjectType({
             },
             resolve: (parent, args) => {
                 try {
-                    const points = new GeneratePoints(args.spread, args.length, args.equation, args.minX, args.maxX)
+                    const points = new GeneratePoints(args.minX, args.maxX, args.length, args.spread, args.equation, args.graphType)
                     return points.getPoints()
                 } catch (error) {
                     return error

@@ -162,6 +162,15 @@ const PointsType = new GraphQLObjectType({
     })
 })
 
+const PointsGraphsType = new GraphQLScalarType({
+    name: "PointsGraphsType",
+    description: "This represents the types of graphs the generatePoints query can create.",
+    parseValue(value) { // add other types of graphs
+        if (!['polynomial', 'log', 'logistic', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan'].includes(value)) throw new GraphQLError(`Graph type "${value}" is not supported`) // if the value is not a supported graph type, throw error, otherwise return the value
+        return value
+    }
+})
+
 const TriangleType = new GraphQLObjectType({
     name: "Triangle",
     description: "This represents an array of lengths and degrees of a Triangle given 3 lengths or degrees or a mixture of both.",
@@ -211,5 +220,6 @@ module.exports = {
     DatasetOrderInputType,
     PercentileType,
     PointsType,
-    TriangleType
+    TriangleType,
+    PointsGraphsType,
 }

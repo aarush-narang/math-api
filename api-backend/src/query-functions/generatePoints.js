@@ -4,14 +4,15 @@ const {
 const { getRandomFloat } = require('../util/util')
 
 class GeneratePoints {
-    constructor(spread, len, eq, minX, maxX) {
+    constructor(minX, maxX, len, spread, eq, type) {
         if (!(eq instanceof Array)) throw new UserInputError('Equation must be given in an array of coefficients of a polynomial in ascending order of power. The highest power will be automatically interpreted. 0\'s are allowed.')
-
+        console.log(type)
         this.spread = spread
         this.len = len
         this.eq = eq
         this.maxX = maxX
         this.minX = minX
+        this.type = type
     }
     getPoints() { // To see an example of how this is used, check out pointsQueryTest.py
         const getYVal = (eq, x) => {
