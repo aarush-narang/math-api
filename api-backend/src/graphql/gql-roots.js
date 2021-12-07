@@ -95,7 +95,6 @@ const RootQueryType = new GraphQLObjectType({
                     const cubic = new CubicEquation(args.y, args.a, args.b, args.c, args.d)
                     return cubic.solveEquation()
                 } catch (error) {
-                    console.log(error)
                     return error
                 }
             }
