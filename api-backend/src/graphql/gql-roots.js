@@ -239,7 +239,7 @@ const RootQueryType = new GraphQLObjectType({
                 },
                 equation: {
                     type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLFloat))),
-                    description: 'This represents an equation of any power given in an array of coefficients in ascending order of power'
+                    description: 'This represents an equation of any power given in an array of coefficients in ascending order of power or as coefficients that are a part of an equation like y = a*log_b(cx + d) + e. These coefficients will be turned into the graphtype provided in the field "graphType". If graphType is not provided, the default is a polynomial'
                 }
             },
             resolve: (parent, args) => {

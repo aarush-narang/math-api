@@ -49,7 +49,7 @@ class GeneratePoints {
         } else if (['log'].includes(this.type)) { // log functions
             // [a, b, c, d, e] => f(x) = a*log_b(cx + d) + e. 0's are used for empty variables.
             const getLogYVal = (eq, x) => {
-                if (eq.length !== 5) throw new UserInputError('Equation was not provided in proper format. [a, b, c, d, e] => f(x) = a*log_b(cx + d) + e. If not applicable, 0\'s are allowed.')
+                if (eq.length !== 5) throw new UserInputError('Equation was not provided in proper format. [a, b, c, d, e] => f(x) = a*log_b(cx + d) + e. If a number is not applicable, 0\'s are allowed.')
                 if ((eq[2] * x) + eq[3] < 1) throw new UserInputError('Log of numbers less than 1 are not possible.')
                 if (eq[1] < 2) throw new UserInputError('Base cannot be lower than 2')
                 if (eq[0] === 0) throw new UserInputError('"a" cannot be equal to 0, otherwise it is not a log function.')
@@ -58,6 +58,20 @@ class GeneratePoints {
             }
             for (let xindex = 0; xindex < xvalues.length; xindex++) {
                 yvalues.push(getLogYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
+            }
+        } else if (['logistic'].includes(this.type)) { // logistic functions
+            // [a, b, c, d] => f(x) = a / b + c * e^(d * x). 0's are used for empty variables. In this equation, e is not a variable but is an irrational number appx. equal to 2.718. 
+            const getLogisticYVal = (eq, x) => {
+                if (eq.length !== 4) throw new UserInputError('Equation was not provided in proper format. [a, b, c, d] => f(x) = a / b + c * e^(d * x). If a number is not applicable, 0\'s are allowed.')
+                if (eq[0] === 0) throw new UserInputError('"a" cannot be equal to 0 in order to make a logistic function')
+                if (eq[1] < 1) throw new UserInputError('"b" cannot be less than 1 in order to make a logistic function')
+                if (eq[2] < 1) throw new UserInputError('"c" cannot be less than 1 in order to make a logistic function')
+                if (eq[3] === 0) throw new UserInputError('"d" cannot be equal to 0 in order to make a logistic function')
+
+                return eq[0] / (eq[1] + (eq[2] * (Math.E ** (eq[3] * x))))
+            }
+            for (let xindex = 0; xindex < xvalues.length; xindex++) {
+                yvalues.push(getLogisticYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
             }
         }
 
