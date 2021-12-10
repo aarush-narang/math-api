@@ -25,7 +25,7 @@ class GeneratePoints {
             return (Math.random() * (max - min)) + min
         }
 
-        const xvalues = []
+        let xvalues = []
         const yvalues = []
 
         // gets x values
@@ -110,6 +110,21 @@ class GeneratePoints {
                 yvalues.push(getTanYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
             }
         } else if (['asin'].includes(this.type)) { // arcsin functions
+            // [a, b, c, d] => f(x) = a * asin(b * x + c) + d. 0's are used for empty variables.
+            xvalues = xvalues.filter(val => { // precaution in case values outside the range of the arcsin function are produced
+                if (val < 1 / this.eq[1] && val > 1 / -this.eq[1]) return val
+                return false
+            })
+            const getArcsinYVal = (eq, x) => {
+                if (eq.length !== 4) throw new UserInputError('Equation was not provided in proper format. [a, b, c, d] => f(x) = a * asin(b * x + c) + d. If a number is not applicable, put a 0.')
+                if (eq[0] === 0) throw new UserInputError('"a" cannot be equal to 0 in order to make a asin function')
+                if (eq[1] === 0) throw new UserInputError('"b" cannot be equal to 0 in order to make a asin function')
+
+                return (eq[0] * Math.asin(eq[1] * (x + eq[2]))) + eq[3]
+            }
+            for (let xindex = 0; xindex < xvalues.length; xindex++) {
+                yvalues.push(getArcsinYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
+            }
         }
 
         return {

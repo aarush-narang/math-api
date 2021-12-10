@@ -209,8 +209,36 @@ def tan(): # this might return less points than you want because some points cou
     plt.scatter(xvals, yvals) # plot the points
     plt.show()
 
+def asin():
+    length = 100 # number of points returned
+    eq = [1000, 0.001, 0, 0] # coefficients of the equation.
+    spread = 400 # relative distance the points will be from the line
+    minX = -1/eq[1] # minimum x value
+    maxX = 1/eq[1] # maximum x value
+    graphType = 'asin'
 
-    plt.plot(x, y) # plot line. this line will look rigid, but you can use the commented code above to make it curvy; however, the commented code above will not make it in the shape of a logistic function properly
+    plt.figure(figsize = (12, 6))
+    plt.title('Testing Equation Plotting: Arcsin Function') # labels
+    plt.xlabel('x-values')
+    plt.ylabel('y-values')
+    plt.grid(alpha =.6, linestyle ='--') # grid
+
+    """
+    Below is an example on how you can create a request with GraphQL. The example is URLEncoded but, as shown in server.js, you can also send requests in JSON. 
+    See https://graphql.org/learn/serving-over-http/ for more details.
+    """
+
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    if(res.get('errors')): return print(res['errors']) # make sure to catch errors
+
+    points = res['data']['generatePoints']
+    xvals = points['xvalues']
+    yvals = points['yvalues']
+
+    x = np.linspace(minX, maxX, length*10) # in order to not make line jagged, hundreds to thousands of points are needed
+    y = (eq[0] * np.arcsin(eq[1] * (x + eq[2]))) + eq[3] # finds y values from x values
+
+    plt.plot(x, y) # plot line
     plt.scatter(xvals, yvals) # plot the points
     plt.show()
 
