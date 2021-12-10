@@ -166,20 +166,34 @@ const graphs = [ // different types of graphs the query will be able to handle (
     'polynomial', // done
     'poly', // same as 1
     'log', // done
-    'logistic', 
-    'sin', 
-    'cos', 
-    'tan', 
-    'asin', 
-    'acos', 
+    'logarithmic',
+    'logistic',
+    'logis',
+    'sin',
+    'sine', 
+    'cos',
+    'cosine',
+    'tan',
+    'tangent',
+    'asin',
+    'arcsin',
+    'arcsine',
+    'acos',
+    'arccos',
+    'arccosine',
     'atan',
+    'arctan',
+    'arctangent',
+    'exp',
+    'expo',
+    'exponential',
 ]
 
 const PointsGraphsType = new GraphQLScalarType({
     name: "PointsGraphsType",
     description: "This represents the types of graphs the generatePoints query can create.",
     parseValue(value) { // add other types of graphs
-        if (!graphs.includes(value)) throw new GraphQLError(`Graph type "${value}" is not supported`) // if the value is not a supported graph type, throw error, otherwise return the value
+        if (!graphs.includes(value.toLowerCase())) throw new GraphQLError(`Graph type "${value}" is not supported`) // if the value is not a supported graph type, throw error, otherwise return the value
         return value
     }
 })
