@@ -162,7 +162,7 @@ const PointsType = new GraphQLObjectType({
     })
 })
 
-const graphs = [ // different types of graphs the query will be able to handle (most are not done yet)
+const graphs = [ // different types of graphs the query will be able to handle
     'polynomial',
     'poly',
     'log',
