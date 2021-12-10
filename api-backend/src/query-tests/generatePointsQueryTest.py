@@ -235,7 +235,7 @@ def asin():
     xvals = points['xvalues']
     yvals = points['yvalues']
 
-    x = np.linspace(minX, maxX, length*10) # in order to not make line jagged, hundreds to thousands of points are needed
+    x = np.linspace(minX, maxX, length*100) # in order to not make line jagged, hundreds to thousands of points are needed
     y = (eq[0] * np.arcsin(eq[1] * (x + eq[2]))) + eq[3] # finds y values from x values
 
     plt.plot(x, y) # plot line
