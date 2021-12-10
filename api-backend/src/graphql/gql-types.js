@@ -163,28 +163,36 @@ const PointsType = new GraphQLObjectType({
 })
 
 const graphs = [ // different types of graphs the query will be able to handle
-    'polynomial',
+    'polynomial', // polynomial
     'poly',
-    'log',
+    'log', // log
     'logarithmic',
-    'logistic',
+    'logistic', // logistic
     'logis',
-    'sin',
+    'sin', // sin
     'sine',
-    'cos',
+    'cos', // cos
     'cosine',
-    'tan',
+    'tan', // tan
     'tangent',
-    'asin',
+    'asin', // arcsin
     'arcsin',
     'arcsine',
-    'acos',
+    'acos', // arccos
     'arccos',
     'arccosine',
-    'atan',
+    'atan', // arctan
     'arctan',
     'arctangent',
-    'exp',
+    'csc', // cosecant
+    'cosec',
+    'cosecant',
+    'sec', // secant
+    'secant',
+    'cot', // cotan
+    'cotan',
+    'cotangent',
+    'exp', // exponential
     'expo',
     'exponential',
 ]

@@ -342,7 +342,123 @@ def expo(): # [a, b, c, d, e] => f(x) = a * b ^ (c * x + d) + e
     plt.scatter(xvals, yvals) # plot the points
     plt.show()
 
+def csc(): # [a, b, c, d] => f(x) = a * csc(b * x + c) + d
+    # this might return less points than you want because some points could have y values in the thousands
+    length = 100 # number of points returned
+    eq = [1, 2, 0, 0] # coefficients of the equation
+    spread = 10 # relative distance the points will be from the line
+    minX = 0 # minimum x value
+    maxX = 10 # maximum x value
+    graphType = 'csc'
 
+    plt.figure(figsize = (12, 6))
+    plt.title('Testing Equation Plotting: Cosecant Function') # labels
+    plt.xlabel('x-values')
+    plt.ylabel('y-values')
+    plt.grid(alpha =.6, linestyle ='--') # grid
+
+    plt.ylim(-100, 100) # limits to the x and y axis are needed to properly show the graph
+    plt.xlim(0, 10)
+
+    """
+    Below is an example on how you can create a request with GraphQL. The example is URLEncoded but, as shown in server.js, you can also send requests in JSON. 
+    See https://graphql.org/learn/serving-over-http/ for more details.
+    """
+
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    if(res.get('errors')): return print(res['errors']) # make sure to catch errors
+
+    points = res['data']['generatePoints']
+    xvals = points['xvalues']
+    yvals = points['yvalues']
+
+    x = np.linspace(minX, maxX*(1.1), length*1000) # in order to not make line jagged, hundreds to thousands of points are needed
+    x = x[x != 0] # remove 0s
+    y = (eq[0] * (1/np.sin(eq[1] * (x + eq[2])))) + eq[3] # finds y values from x values
+
+    plt.plot(x, y) # plot line
+    plt.scatter(xvals, yvals) # plot the points
+    plt.show()
+
+def sec(): # [a, b, c, d] => f(x) = a * sec(b * x + c) + d
+    # this might return less points than you want because some points could have y values in the thousands
+    length = 100 # number of points returned
+    eq = [1, 2, 0, 0] # coefficients of the equation
+    spread = 10 # relative distance the points will be from the line
+    minX = 0 # minimum x value
+    maxX = 10 # maximum x value
+    graphType = 'sec'
+
+    plt.figure(figsize = (12, 6))
+    plt.title('Testing Equation Plotting: Secant Function') # labels
+    plt.xlabel('x-values')
+    plt.ylabel('y-values')
+    plt.grid(alpha =.6, linestyle ='--') # grid
+
+    plt.ylim(-100, 100) # limits to the x and y axis are needed to properly show the graph
+    plt.xlim(0, 10)
+
+    """
+    Below is an example on how you can create a request with GraphQL. The example is URLEncoded but, as shown in server.js, you can also send requests in JSON. 
+    See https://graphql.org/learn/serving-over-http/ for more details.
+    """
+
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    if(res.get('errors')): return print(res['errors']) # make sure to catch errors
+
+    points = res['data']['generatePoints']
+    xvals = points['xvalues']
+    yvals = points['yvalues']
+
+    x = np.linspace(minX, maxX*(1.1), length*1000) # in order to not make line jagged, hundreds to thousands of points are needed
+    x = x[x != 0] # remove 0s
+    y = (eq[0] * (1/np.cos(eq[1] * (x + eq[2])))) + eq[3] # finds y values from x values
+
+    plt.plot(x, y) # plot line
+    plt.scatter(xvals, yvals) # plot the points
+    plt.show()
+
+def cot(): # [a, b, c, d] => f(x) = a * cot(b * x + c) + d
+    # this might return less points than you want because some points could have y values in the thousands
+    length = 100 # number of points returned
+    eq = [1, 2, 0, 0] # coefficients of the equation
+    spread = 10 # relative distance the points will be from the line
+    minX = -10 # minimum x value
+    maxX = 10 # maximum x value
+    graphType = 'cot'
+
+    plt.figure(figsize = (12, 6))
+    plt.title('Testing Equation Plotting: Cotangent Function') # labels
+    plt.xlabel('x-values')
+    plt.ylabel('y-values')
+    plt.grid(alpha =.6, linestyle ='--') # grid
+
+    plt.ylim(-100, 100) # limits to the x and y axis are needed to properly show the graph
+    plt.xlim(-10, 10)
+
+    """
+    Below is an example on how you can create a request with GraphQL. The example is URLEncoded but, as shown in server.js, you can also send requests in JSON. 
+    See https://graphql.org/learn/serving-over-http/ for more details.
+    """
+
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    if(res.get('errors')): return print(res['errors']) # make sure to catch errors
+
+    points = res['data']['generatePoints']
+    xvals = points['xvalues']
+    yvals = points['yvalues']
+
+    x = np.linspace(minX, maxX*(1.1), length*1000) # in order to not make line jagged, hundreds to thousands of points are needed
+    x = x[x != 0] # remove 0s
+    y = (eq[0] * (1/np.tan(eq[1] * (x + eq[2])))) + eq[3] # finds y values from x values
+    y2 = (eq[0] * np.tan(eq[1] * (x + eq[2]))) + eq[3] # finds y values from x values
+    y3 = (10 * np.arctan(eq[1] * (x + eq[2]))) + eq[3]
+
+    plt.plot(x, y) # plot line of cotangent
+    plt.plot(x, y2) # plot line of tangent
+    plt.plot(x, y3) # plot line of arctan
+    plt.scatter(xvals, yvals) # plot the points
+    plt.show()
 
 if __name__ == '__main__':
     # polynomial()
@@ -354,4 +470,7 @@ if __name__ == '__main__':
     # asin()
     # acos()
     # atan()
-    expo()
+    # expo()
+    # csc()
+    # sec()
+    cot()

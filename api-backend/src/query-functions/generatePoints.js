@@ -166,6 +166,42 @@ class GeneratePoints {
             for (let xindex = 0; xindex < xvalues.length; xindex++) {
                 yvalues.push(getExpoYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
             }
+        } else if (['csc', 'cosec', 'cosecant',].includes(this.type)) {
+            // [a, b, c, d] => f(x) = a * csc(b * x + c) + d. 0's are used for empty variables.
+            const getCscYVal = (eq, x) => {
+                if (eq.length !== 4) throw new UserInputError('Equation was not provided in proper format. [a, b, c, d] => f(x) = a * csc(b * x + c) + d. If a number is not applicable, put a 0.')
+                if (eq[0] === 0) throw new UserInputError('"a" cannot be equal to 0 in order to make a csc function')
+                if (eq[1] === 0) throw new UserInputError('"b" cannot be equal to 0 in order to make a csc function')
+
+                return (eq[0] * (1/Math.sin(eq[1] * (x + eq[2])))) + eq[3]
+            }
+            for (let xindex = 0; xindex < xvalues.length; xindex++) {
+                yvalues.push(getCscYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
+            }
+        } else if (['sec', 'secant'].includes(this.type)) {
+            // [a, b, c, d] => f(x) = a * sec(b * x + c) + d. 0's are used for empty variables.
+            const getSecYVal = (eq, x) => {
+                if (eq.length !== 4) throw new UserInputError('Equation was not provided in proper format. [a, b, c, d] => f(x) = a * sec(b * x + c) + d. If a number is not applicable, put a 0.')
+                if (eq[0] === 0) throw new UserInputError('"a" cannot be equal to 0 in order to make a sec function')
+                if (eq[1] === 0) throw new UserInputError('"b" cannot be equal to 0 in order to make a sec function')
+
+                return (eq[0] * (1/Math.cos(eq[1] * (x + eq[2])))) + eq[3]
+            }
+            for (let xindex = 0; xindex < xvalues.length; xindex++) {
+                yvalues.push(getSecYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
+            }
+        } else if (['cot', 'cotan', 'cotangent',].includes(this.type)) {
+            // [a, b, c, d] => f(x) = a * cot(b * x + c) + d. 0's are used for empty variables.
+            const getTanYVal = (eq, x) => {
+                if (eq.length !== 4) throw new UserInputError('Equation was not provided in proper format. [a, b, c, d] => f(x) = a * cot(b * x + c) + d. If a number is not applicable, put a 0.')
+                if (eq[0] === 0) throw new UserInputError('"a" cannot be equal to 0 in order to make a cot function')
+                if (eq[1] === 0) throw new UserInputError('"b" cannot be equal to 0 in order to make a cot function')
+
+                return (eq[0] * (1/Math.tan(eq[1] * (x + eq[2])))) + eq[3]
+            }
+            for (let xindex = 0; xindex < xvalues.length; xindex++) {
+                yvalues.push(getTanYVal(this.eq, xvalues[xindex]) + getAdd(this.spread))
+            }
         }
 
         return {
