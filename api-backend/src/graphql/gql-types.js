@@ -163,14 +163,14 @@ const PointsType = new GraphQLObjectType({
 })
 
 const graphs = [ // different types of graphs the query will be able to handle (most are not done yet)
-    'polynomial', // done
-    'poly', // same as 1
-    'log', // done
+    'polynomial',
+    'poly',
+    'log',
     'logarithmic',
     'logistic',
     'logis',
     'sin',
-    'sine', 
+    'sine',
     'cos',
     'cosine',
     'tan',
