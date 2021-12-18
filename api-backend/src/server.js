@@ -10,19 +10,24 @@ const {
 const {
 	RootQueryType
 } = require('./graphql/gql-roots')
+const {
+	authentication,
+} = require('./auth')
 
 const PORT = process.env.BACKEND_PORT || 3002
 
-const app = express()
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({
 	extended: false
 }));
 
+app.use(authentication)
+
 app.use(cors({
-	origin: 'http://localhost:3000',
-	methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
+	origin: '*',
+	methods: ['GET', 'POST'],
 	credentials: true,
 }, ));
 
