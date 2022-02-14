@@ -11,7 +11,7 @@ const {
 	RootQueryType
 } = require('./graphql/gql-roots')
 
-const PORT = process.env.BACKEND_PORT || 3002
+const PORT = process.env.BACKEND_PORT || 3001
 
 const app = express()
 
