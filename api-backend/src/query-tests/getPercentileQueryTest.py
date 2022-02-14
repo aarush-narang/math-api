@@ -14,7 +14,7 @@ def main():
     Below is an example on how you can create a request with GraphQL. The example is URLEncoded but, as shown in server.js, you can also send requests in JSON. 
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ getPercentile(min: {min}, max: {max}, sd: {sd} mean: {mean}){{ zscores percentile }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ getPercentile(min: {min}, max: {max}, sd: {sd} mean: {mean}){{ zscores percentile }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     res = res['data']['getPercentile']

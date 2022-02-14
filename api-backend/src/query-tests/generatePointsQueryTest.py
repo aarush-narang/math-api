@@ -30,7 +30,7 @@ def polynomial(): # any polynomial works, ex: 5*x**2 - 10*x + 25 or 5*x**3 + 0*x
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -59,7 +59,7 @@ def log(): # [a, b, c, d, e] => f(x) = a*log_b(cx + d) + e
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -92,7 +92,7 @@ def logistic(): # [a, b, c, d] => f(x) = a / b + c * e^(d * x)
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -126,7 +126,7 @@ def sin(): # [a, b, c, d] => f(x) = a * sin(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -159,7 +159,7 @@ def cos(): # [a, b, c, d] => f(x) = a * cos(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -196,7 +196,7 @@ def tan(): # [a, b, c, d] => f(x) = a * tan(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -229,7 +229,7 @@ def asin(): # [a, b, c, d] => f(x) = a * asin(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -262,7 +262,7 @@ def acos(): # [a, b, c, d] => f(x) = a * acos(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -295,7 +295,7 @@ def atan(): # [a, b, c, d] => f(x) = a * atan(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -328,7 +328,7 @@ def expo(): # [a, b, c, d, e] => f(x) = a * b ^ (c * x + d) + e
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -365,7 +365,7 @@ def csc(): # [a, b, c, d] => f(x) = a * csc(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -403,7 +403,7 @@ def sec(): # [a, b, c, d] => f(x) = a * sec(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']
@@ -441,7 +441,7 @@ def cot(): # [a, b, c, d] => f(x) = a * cot(b * x + c) + d
     See https://graphql.org/learn/serving-over-http/ for more details.
     """
 
-    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}).content.decode())
+    res = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ generatePoints(spread: {spread}, length: {length}, equation: {eq}, minX: {minX}, maxX: {maxX}, graphType: {graphType}) {{ xvalues yvalues }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res.get('errors')): return print(res['errors']) # make sure to catch errors
 
     points = res['data']['generatePoints']

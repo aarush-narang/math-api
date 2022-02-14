@@ -20,7 +20,7 @@ def main():
 
     This quadratic solver can return real, rational roots
     """
-    res1 = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ solveQuadratic(a: {a1}, b: {b1}, c: {c1}){{ roots vertex yIntercept }} }}'}).content.decode())
+    res1 = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ solveQuadratic(a: {a1}, b: {b1}, c: {c1}){{ roots vertex yIntercept }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res1.get('errors')): return print(res1['errors']) # make sure to catch errors
 
     res1 = res1['data']['solveQuadratic']
@@ -30,7 +30,7 @@ def main():
     """
     As well as imaginary roots
     """
-    res2 = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ solveQuadratic(a: {a2}, b: {b2}, c: {c2}){{ roots vertex yIntercept }} }}'}).content.decode())
+    res2 = json.loads(requests.get('http://localhost:3001/graphql', data={'query': f'{{ solveQuadratic(a: {a2}, b: {b2}, c: {c2}){{ roots vertex yIntercept }} }}'}, headers={'X-API-Key': '1234'}).content.decode())
     if(res2.get('errors')): return print(res2['errors']) # make sure to catch errors
 
     res2 = res2['data']['solveQuadratic']
