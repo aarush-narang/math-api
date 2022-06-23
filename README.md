@@ -31,7 +31,7 @@ To start the server, run
 npm run dev
 ```
 
-You can then go to `localhost:3001/graphql` to access the GraphQL GUI. To make requests, URL-encode a standard graphql request [(see)](https://graphql.org/learn/best-practices/) and insert it in the URL query parameter. Form: `localhost:3000/graphql?query=(YOUR URL-ENCODED QUERY HERE)`
+You can then go to `localhost:3001/graphql` to access the GraphQL GUI. To make requests, URL-encode a standard graphql request [(see)](https://graphql.org/learn/) and insert it in the URL query parameter. Form: `localhost:3000/graphql?query=(YOUR URL-ENCODED QUERY HERE)`
 
 Ex:
 
