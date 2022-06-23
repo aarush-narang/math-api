@@ -29,9 +29,6 @@ const {
     CubicEquation,
     Triangle
 } = require('../query-functions/export-classes')
-const {
-    ForbiddenError
-} = require('apollo-server')
 
 const RootQueryType = new GraphQLObjectType({
     name: 'Query',
@@ -58,15 +55,7 @@ const RootQueryType = new GraphQLObjectType({
                     defaultValue: 0
                 }
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-                
+            resolve: async (parent, args) => {
                 try {
                     const quadratic = new QuadraticEquation(args.y, args.a, args.b, args.c)
                     return quadratic.solveEquation()
@@ -100,15 +89,7 @@ const RootQueryType = new GraphQLObjectType({
                     defaultValue: 0
                 }
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-
+            resolve: async (parent, args) => {
                 try {
                     const cubic = new CubicEquation(args.y, args.a, args.b, args.c, args.d)
                     return cubic.solveEquation()
@@ -131,15 +112,7 @@ const RootQueryType = new GraphQLObjectType({
                     type: new GraphQLNonNull(GraphQLInt)
                 }
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-
+            resolve: async (parent, args) => {
                 try {
                     const regressioneq = new PolyRegression(args.x, args.y, args.highestDegree)
                     return regressioneq.getRegression()
@@ -156,15 +129,7 @@ const RootQueryType = new GraphQLObjectType({
                     type: new GraphQLNonNull(new GraphQLList(GraphQLFloat))
                 }
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-
+            resolve: async (parent, args) => {
                 try {
                     const stats = new Stats(args.values)
                     return stats.getStats()
@@ -205,15 +170,7 @@ const RootQueryType = new GraphQLObjectType({
                     defaultValue: 0
                 }
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-
+            resolve: async (parent, args, request) => {
                 try {
                     const dataset = new GenerateDataset(args.min, args.max, args.length, args.float, args.precision, args.order)
                     return dataset.generate()
@@ -243,15 +200,7 @@ const RootQueryType = new GraphQLObjectType({
                     description: "This value is required to calculate the percentage"
                 }
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-
+            resolve: async (parent, args) => {
                 try {
                     const percentage = new Percentile(args.min, args.max, args.sd, args.mean)
                     return percentage.getPercentile()
@@ -292,15 +241,7 @@ const RootQueryType = new GraphQLObjectType({
                     description: 'This represents an equation of any power given in an array of coefficients in ascending order of power or as coefficients that are a part of an equation like y = a*log_b(cx + d) + e. These coefficients will be turned into the graphtype provided in the field "graphType". If graphType is not provided, the default is a polynomial'
                 }
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-                
+            resolve: async (parent, args) => {
                 try {
                     const points = new GeneratePoints(args.minX, args.maxX, args.length, args.spread, args.equation, args.graphType)
                     return points.getPoints()
@@ -322,15 +263,7 @@ const RootQueryType = new GraphQLObjectType({
                     description: 'This represents the angles given as an array'
                 },
             },
-            resolve: async (parent, args, request, thisQuery) => {
-                if (!request.permissions.includes(thisQuery.path.key)) throw new ForbiddenError('This API key is not authorized to use this query.')
-
-                const collection = request.userinfo.collection
-                const apiKey = request.userinfo.apiKey
-
-                const prevDoc = await collection.findOne({ apiKey })
-                collection.updateOne({ apiKey }, { $set: { requests: prevDoc.requests + 1 } })
-                
+            resolve: async (parent, args) => {
                 try {
                     const triangle = new Triangle(args.sides, args.angles)
                     return triangle.solveTriangle()

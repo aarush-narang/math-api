@@ -10,9 +10,6 @@ const {
 const {
 	RootQueryType
 } = require('./graphql/gql-roots')
-const {
-	authentication,
-} = require('./auth')
 
 const PORT = process.env.BACKEND_PORT || 3002
 
@@ -22,8 +19,6 @@ app.use(express.json());
 app.use(express.urlencoded({
 	extended: false
 }));
-
-app.use(authentication)
 
 app.use(cors({
 	origin: '*',
@@ -40,4 +35,4 @@ app.use('/graphql', graphqlHTTP({
 }))
 
 
-app.listen(PORT, () => console.log(`Server Running on Port ${PORT}. http://localhost:${PORT}/graphql`))
+app.listen(PORT, () => console.log(`Server Running on Port ${PORT}`))
