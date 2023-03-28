@@ -455,15 +455,13 @@ def cot(): # [a, b, c, d] => f(x) = a * cot(b * x + c) + d
     y3 = (10 * np.arctan(eq[1] * (x + eq[2]))) + eq[3]
 
     plt.plot(x, y) # plot line of cotangent
-    plt.plot(x, y2) # plot line of tangent
-    plt.plot(x, y3) # plot line of arctan
     plt.scatter(xvals, yvals) # plot the points
     plt.show()
 
 if __name__ == '__main__':
     # polynomial()
     # log()
-    # logistic()
+    logistic()
     # sin()
     # cos()
     # tan()
@@ -473,4 +471,4 @@ if __name__ == '__main__':
     # expo()
     # csc()
     # sec()
-    cot()
+    # cot()
