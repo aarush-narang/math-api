@@ -5,7 +5,6 @@ const {
     GraphQLInt,
     GraphQLBoolean,
     GraphQLFloat,
-    GraphQLString
 } = require('graphql')
 const {
     QuadraticType,
@@ -35,11 +34,11 @@ const RootQueryType = new GraphQLObjectType({
     description: 'Root Query',
     fields: () => ({
         solveQuadratic: {
-            type: QuadraticType,
+            type: QuadraticType, // Return Type
             description: "Solve a quadratic equation that is in the form y = ax^2 + bx + c.",
             args: {
                 y: {
-                    type: new GraphQLNonNull(GraphQLFloat),
+                    type: new GraphQLNonNull(GraphQLFloat), // Arg Types
                     defaultValue: 0
                 },
                 a: {
@@ -55,7 +54,7 @@ const RootQueryType = new GraphQLObjectType({
                     defaultValue: 0
                 }
             },
-            resolve: async (parent, args) => {
+            resolve: async (parent, args) => { // Resolver
                 try {
                     const quadratic = new QuadraticEquation(args.y, args.a, args.b, args.c)
                     return quadratic.solveEquation()

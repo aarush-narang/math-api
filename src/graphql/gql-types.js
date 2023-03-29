@@ -47,7 +47,7 @@ const CubicType = new GraphQLObjectType({
 })
 
 const PolyRegType = new GraphQLObjectType({
-    name: "Polynomial_Regression",
+    name: "PolynomialRegression",
     description: "This represents a line of best-fit for the data provided.",
     fields: () => ({
         coefficients: {
